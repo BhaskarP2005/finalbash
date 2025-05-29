@@ -52,3 +52,59 @@ int main() {
     return 0;
 }
 
+
+
+#include <stdio.h>
+#include <string.h>
+
+#define MAX 100
+
+struct Student {
+    int id;
+    char name[50];
+    float feePaid;
+};
+
+struct Student students[MAX];
+int count = 0;
+
+void addStudent() {
+    if (count >= MAX) {
+        printf("Limit reached.\n");
+        return;
+    }
+    printf("Enter ID: ");
+    scanf("%d", &students[count].id);
+    printf("Enter Name: ");
+    scanf(" %[^\n]", students[count].name);
+    printf("Enter Fee Paid: ");
+    scanf("%f", &students[count].feePaid);
+    count++;
+}
+
+void displayFees() {
+    if (count == 0) {
+        printf("No records.\n");
+        return;
+    }
+    for (int i = 0; i < count; i++) {
+        printf("\nID: %d\nName: %s\nFee Paid: %.2f\n",
+               students[i].id, students[i].name, students[i].feePaid);
+    }
+}
+
+int main() {
+    int choice;
+    do {
+        printf("\n1. Add Student Fee\n2. Display Fees\n3. Exit\nChoice: ");
+        scanf("%d", &choice);
+        switch (choice) {
+            case 1: addStudent(); break;
+            case 2: displayFees(); break;
+            case 3: printf("Goodbye!\n"); break;
+            default: printf("Invalid choice.\n");
+        }
+    } while (choice != 3);
+    return 0;
+}
+
