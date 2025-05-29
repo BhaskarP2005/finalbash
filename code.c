@@ -108,3 +108,63 @@ int main() {
     return 0;
 }
 
+
+
+#include <stdio.h>
+#include <string.h>
+
+#define MAX 100
+
+struct Student {
+    int id;
+    char name[50];
+    float hoursWorked;
+    float hourlyRate;
+};
+
+struct Student students[MAX];
+int count = 0;
+
+void addPayroll() {
+    if (count >= MAX) {
+        printf("Limit reached.\n");
+        return;
+    }
+    printf("Enter ID: ");
+    scanf("%d", &students[count].id);
+    printf("Enter Name: ");
+    scanf(" %[^\n]", students[count].name);
+    printf("Hours Worked: ");
+    scanf("%f", &students[count].hoursWorked);
+    printf("Hourly Rate: ");
+    scanf("%f", &students[count].hourlyRate);
+    count++;
+}
+
+void displayPayroll() {
+    if (count == 0) {
+        printf("No payroll records.\n");
+        return;
+    }
+    for (int i = 0; i < count; i++) {
+        float salary = students[i].hoursWorked * students[i].hourlyRate;
+        printf("\nID: %d\nName: %s\nSalary: %.2f\n",
+               students[i].id, students[i].name, salary);
+    }
+}
+
+int main() {
+    int choice;
+    do {
+        printf("\n1. Add Payroll\n2. Display Payroll\n3. Exit\nChoice: ");
+        scanf("%d", &choice);
+        switch (choice) {
+            case 1: addPayroll(); break;
+            case 2: displayPayroll(); break;
+            case 3: printf("Exiting...\n"); break;
+            default: printf("Invalid choice.\n");
+        }
+    } while (choice != 3);
+    return 0;
+}
+
