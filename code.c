@@ -224,3 +224,65 @@ int main() {
     return 0;
 }
 
+
+
+#include <stdio.h>
+#include <string.h>
+
+#define MAX 100
+
+struct Student {
+    int id;
+    char name[50];
+    float marks;
+};
+
+struct Student students[MAX];
+int count = 0;
+
+void addStudent() {
+    if (count >= MAX) {
+        printf("Limit reached.\n");
+        return;
+    }
+    printf("Enter ID: ");
+    scanf("%d", &students[count].id);
+    printf("Enter Name: ");
+    scanf(" %[^\n]", students[count].name);
+    printf("Enter Marks: ");
+    scanf("%f", &students[count].marks);
+    count++;
+}
+
+void showReport() {
+    if (count == 0) {
+        printf("No data available.\n");
+        return;
+    }
+    float total = 0, max = students[0].marks, min = students[0].marks;
+    int maxIdx = 0, minIdx = 0;
+    for (int i = 0; i < count; i++) {
+        total += students[i].marks;
+        if (students[i].marks > max) { max = students[i].marks; maxIdx = i; }
+        if (students[i].marks < min) { min = students[i].marks; minIdx = i; }
+    }
+    printf("Total Students: %d\nAverage Marks: %.2f\n", count, total / count);
+    printf("Topper: %s (%.2f)\nLowest: %s (%.2f)\n",
+           students[maxIdx].name, max, students[minIdx].name, min);
+}
+
+int main() {
+    int choice;
+    do {
+        printf("\n1. Add Student\n2. Show Report\n3. Exit\nChoice: ");
+        scanf("%d", &choice);
+        switch (choice) {
+            case 1: addStudent(); break;
+            case 2: showReport(); break;
+            case 3: printf("Exiting...\n"); break;
+            default: printf("Invalid choice.\n");
+        }
+    } while (choice != 3);
+    return 0;
+}
+
