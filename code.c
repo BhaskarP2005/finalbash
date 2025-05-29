@@ -168,3 +168,59 @@ int main() {
     return 0;
 }
 
+
+
+#include <stdio.h>
+#include <string.h>
+
+#define MAX 100
+
+struct Inventory {
+    int id;
+    char itemName[50];
+    int quantity;
+};
+
+struct Inventory items[MAX];
+int count = 0;
+
+void addItem() {
+    if (count >= MAX) {
+        printf("Inventory full.\n");
+        return;
+    }
+    printf("Enter Item ID: ");
+    scanf("%d", &items[count].id);
+    printf("Enter Item Name: ");
+    scanf(" %[^\n]", items[count].itemName);
+    printf("Enter Quantity: ");
+    scanf("%d", &items[count].quantity);
+    count++;
+}
+
+void displayInventory() {
+    if (count == 0) {
+        printf("No items in inventory.\n");
+        return;
+    }
+    for (int i = 0; i < count; i++) {
+        printf("\nItem ID: %d\nName: %s\nQuantity: %d\n",
+               items[i].id, items[i].itemName, items[i].quantity);
+    }
+}
+
+int main() {
+    int choice;
+    do {
+        printf("\n1. Add Item\n2. Display Inventory\n3. Exit\nChoice: ");
+        scanf("%d", &choice);
+        switch (choice) {
+            case 1: addItem(); break;
+            case 2: displayInventory(); break;
+            case 3: printf("Exiting...\n"); break;
+            default: printf("Invalid choice.\n");
+        }
+    } while (choice != 3);
+    return 0;
+}
+
